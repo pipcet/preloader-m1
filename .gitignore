@@ -1,0 +1,7 @@
+*.o
+apple-m1-j274.dtb
+/Image*
+/linux.macho
+/machopack
+/preboot.bin
+/preboot.elf
