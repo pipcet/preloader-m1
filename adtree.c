@@ -22,7 +22,7 @@ static unsigned p_len(adt_property *p)
 
 static unsigned p_flags(adt_property *p)
 {
-    return (p->len_flags & 0xFF000000ul) >> 16;
+    return (p->len_flags & 0xFF000000ul) >> 24;
 }
 
 typedef struct {
