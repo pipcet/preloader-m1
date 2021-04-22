@@ -771,6 +771,7 @@ void enable_all_clocks(void)
 
 void bring_up_phys(void)
 {
+#if 0
     *(volatile uint32_t *)0x382a90008 = 0x1c1000f;
     *(volatile uint32_t *)0x382a90004 = 3;
     *(volatile uint32_t *)0x382a90004 = 0;
@@ -781,6 +782,7 @@ void bring_up_phys(void)
     *(volatile uint32_t *)0x382a8400c = 0x22;
     *(volatile uint32_t *)0x382a8401c = 0x21;
     *(volatile uint32_t *)0x382a84020 = 0x9332;
+#endif
 
     *(volatile uint32_t *)0x502a90008 = 0x1c1000f;
     *(volatile uint32_t *)0x502a90004 = 3;
@@ -797,7 +799,7 @@ void bring_up_phys(void)
 void soft_reset_dwc3s(void)
 {
     void *addrs[] = { (void *)0x382280000, (void *)0x502280000 };
-    for (int i = 0; i < 2; i++) {
+    for (int i = 1; i < 2; i++) {
 	void *addr = addrs[i];
 #define set32(a,b) (*(volatile uint32_t *)(a)) |= (b)
 #define clear32(a,b) (*(volatile uint32_t *)(a)) &= ~(b)
