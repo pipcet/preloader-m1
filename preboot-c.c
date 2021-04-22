@@ -796,9 +796,9 @@ void bring_up_phys(void)
 
 void soft_reset_dwc3s(void)
 {
-    void **addrs = { (void *)0x382280000, (void *)0x502280000 };
+    void *addrs[] = { (void *)0x382280000, (void *)0x502280000 };
     for (int i = 0; i < 2; i++) {
-	void *addr = addrs + i;
+	void *addr = addrs[i];
 #define set32(a,b) (*(volatile uint32_t *)(a)) |= (b)
 #define clear32(a,b) (*(volatile uint32_t *)(a)) &= ~(b)
 	set32(addr + DWC3_DCTL, DWC3_DCTL_CSFTRST);
