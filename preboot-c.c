@@ -804,7 +804,7 @@ void soft_reset_dwc3s(void)
 #define set32(a,b) (*(volatile uint32_t *)(a)) |= (b)
 #define clear32(a,b) (*(volatile uint32_t *)(a)) &= ~(b)
 	set32(addr + DWC3_DCTL, DWC3_DCTL_CSFTRST);
-	udelay(100*1000);
+	udelay(10*1000);
 	/* soft reset the core and phy */
 	set32(addr + DWC3_GCTL, DWC3_GCTL_CORESOFTRESET);
 	set32(addr + DWC3_GUSB3PIPECTL(0), DWC3_GUSB3PIPECTL_PHYSOFTRST);
@@ -1000,11 +1000,6 @@ void loader_main(void *linux_dtb, struct iphone_boot_args *bootargs, uint64_t sm
     prepare_tunable(apple_dt, "/arm-io/wlan", "module-instance",   linux_dt, "/chosen", "module-wlan0", TUNABLE_PLAIN, PLAIN_BYTE);
 
     configure_x8r8g8b8();
-
-    if(warning_count) {
-        printf("%d warnings; waiting to let you see them.\n", warning_count);
-        udelay(7000000);
-    }
 
     printf("Loader complete, relocating kernel...\n");
     dt_write_dtb(linux_dt, linux_dtb, 0x20000);
