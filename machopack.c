@@ -86,8 +86,11 @@ int main(int argc, char *argv[])
             input[i].type = PREBOOT;
         if(input[i].size >= 0x40 && !memcmp(input[i].data + 0x38, "ARM\x64", 4))
             input[i].type = KERNEL;
-        if(input[i].size >= 4 && !memcmp(input[i].data, "\xd0\x0d\xfe\xed", 4))
+        if(input[i].size >= 4 && !memcmp(input[i].data, "\xd0\x0d\xfe\xed", 4)) {
             input[i].type = DTREE;
+	    input[i].asize = 0xa0000;
+	    input[i].data = realloc(input[i].data, 0xa0000);
+	}
         ninput ++;
     }
 

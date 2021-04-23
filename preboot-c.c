@@ -937,6 +937,10 @@ void loader_main(void *linux_dtb, struct iphone_boot_args *bootargs, uint64_t sm
 	  dt_put64be(prop->buf + 8, 16384);
 	}
     }
+    node = dt_find_node(linux_dt, "/adt");
+    if(node) {
+        prop = dt_set_prop(linux_dt, node, "contents", (void *)bootargs->dtree_virt - bootargs->virt_base + bootargs->phys_base, bootargs->dtree_size);
+    }
 
     node = dt_find_node(linux_dt, "/soc/applestart");
     if(node) {
@@ -1020,8 +1024,9 @@ void loader_main(void *linux_dtb, struct iphone_boot_args *bootargs, uint64_t sm
     configure_x8r8g8b8();
 
     printf("Loader complete, relocating kernel...\n");
-    dt_write_dtb(linux_dt, linux_dtb, 0x20000);
-    dt_free(linux_dt);
+    printf("%d\n", dt_write_dtb(linux_dt, linux_dtb, 0xa0000));
+    //dt_free(linux_dt);
+    printf("really done!\n");
 }
 
 void smp_main(unsigned cpu)

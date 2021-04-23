@@ -4,7 +4,7 @@ AA64CFLAGS = -Os -Wall -std=c99 -fno-builtin -fno-common -fno-pic -fno-unwind-ta
 all: linux.macho
 
 linux.macho: machopack preboot.bin Image apple-m1-j293.dtb
-	./machopack $@ preboot.bin@0x803040000 Image@0x803080000 apple-m1-j293.dtb@0x803060000
+	./machopack $@ preboot.bin@0x803040000 Image@0x803100000 apple-m1-j293.dtb@0x803060000
 
 preboot.bin: preboot.elf
 	$(AA64)objcopy -Obinary $^ $@
