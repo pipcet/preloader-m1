@@ -929,6 +929,15 @@ void loader_main(void *linux_dtb, struct iphone_boot_args *bootargs, uint64_t sm
 	}
     }
 
+    node = dt_find_node(linux_dt, "/reserved-memory/bootargs");
+    if(node) {
+        prop = dt_find_prop(linux_dt, node, "reg");
+        if(prop) {
+	  dt_put64be(prop->buf, bootargs);
+	  dt_put64be(prop->buf + 8, 16384);
+	}
+    }
+
     node = dt_find_node(linux_dt, "/soc/applestart");
     if(node) {
         prop = dt_find_prop(linux_dt, node, "reg");
