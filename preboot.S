@@ -288,13 +288,6 @@ cpuinit_h13p:
 start:
     mov x24, x0
 
-    mov x0, #0
-    mov x1, #0
-    ldr x2, [x24, #0x40]
-    ldr x3, [x24, #0x48]
-    mov w4, #0x0000001f
-    bl fill_rect
-
     mov x1, #0x35200000
     orr x1, x1, #0x200000000
     mov x0, #3
@@ -359,31 +352,6 @@ start:
     mov x3, #0
     add x18, x0, #0xa0000
     br x18
-
-uart_putchar:
-    ldr w16, [x1, #0x10]
-    tbnz w16, #2, 1f
-    b uart_putchar
-1:  str w0, [x1, #0x20]
-    ret
-
-fill_rect:
-    ldr x8, [x24, #0x28]
-    ldr x9, [x24, #0x38]
-    mov w12, w4
-    mul x10, x1, x9
-    add x8, x8, x0, lsl #2
-    add x8, x8, x10
-    mov x10, x3
-1:  mov x11, x2
-2:  str w12, [x8], #4
-    sub x11, x11, #1
-    cbnz x11, 2b
-    add x8, x8, x9
-    sub x8, x8, x2, lsl #2
-    sub x10, x10, #1
-    cbnz x10, 1b
-    ret
 
 .align 4
 .pool

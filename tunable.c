@@ -8,6 +8,8 @@
 
 #include "tunable.h"
 
+#define printf(fmt, ...) do { } while (0)
+
 static unsigned write_tunable_item(uint32_t *lbuf, uint64_t addr, uint32_t mask, uint32_t val, uint64_t *lreg, unsigned lnreg, const char *ldtnname)
 {
     unsigned ireg;
