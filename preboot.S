@@ -288,8 +288,8 @@ cpuinit_h13p:
 start:
     mov x24, x0
 
-    mov x1, #0x35200000
-    orr x1, x1, #0x200000000
+    mov x1, #0x35200000 	// UART base address
+    orr x1, x1, #0x200000000	// UART base address
     mov x0, #3
     str w0, [x1]
     mov x0, #5
@@ -302,14 +302,15 @@ start:
     mov x0, #0x1
     str w0, [x1, #0xc]
 
-    mov x0, #0x3d2b0000
-    orr x0, x0, #0x200000000
+    mov x0, #0x3d2b0000 	// WDT address
+    orr x0, x0, #0x200000000	// WDT address
     str wzr, [x0, #0x1c]
 
     mov x0, #0x800000000
     orr x0, x0, #0x80000000
     sub x0, x0, #16
-    mov sp, x0
+    mov sp, x0			// initialize stack
+
     adr x0, smpentry
     add x0, x0, #0x20000
     mov x1, x24
@@ -317,7 +318,7 @@ start:
     adr x3, rvbar
     bl loader_main
 
-    adr x0, smpentry
+    adr x0, smpentry		// memcpy
     mov x1, #0x800000000
     orr x1, x1, #0x80000000
     add x1, x1, #0x40000
@@ -332,7 +333,7 @@ start:
     cbnz x2, 1b
     isb
 
-    adr x0, smpentry
+    adr x0, smpentry		// set up physical address
     adr x1, 1f
     sub x1, x1, x0
     mov x0, #0x800000000
@@ -342,9 +343,9 @@ start:
     br x1
 1:  isb
 
-    bl cpuinit
+    bl cpuinit			// cpuinit(...)
 
-    mov x0, #0x800000000
+    mov x0, #0x800000000 	// jump to kernel
     orr x0, x0, #0x80000000
     add x0, x0, #0x60000
     mov x1, #0
