@@ -942,6 +942,7 @@ void loader_main(void *linux_dtb, struct iphone_boot_args *bootargs, uint64_t sm
         prop = dt_set_prop(linux_dt, node, "contents", (void *)bootargs->dtree_virt - bootargs->virt_base + bootargs->phys_base, bootargs->dtree_size);
     }
 
+#if 0
     node = dt_find_node(linux_dt, "/soc/applestart");
     if(node) {
         prop = dt_find_prop(linux_dt, node, "reg");
@@ -949,6 +950,7 @@ void loader_main(void *linux_dtb, struct iphone_boot_args *bootargs, uint64_t sm
             for(i=0; i<prop->size/48; i++)
                 dt_put64be(prop->buf + 48 * i + 16, rvbar + 8 * i);
     }
+#endif
 
     model = NULL;
     if(apple_dt) {
