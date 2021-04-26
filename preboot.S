@@ -30,20 +30,6 @@ entry:
 start:
     mov x24, x0
 
-    mov x1, #0x35200000 	// UART base address
-    orr x1, x1, #0x200000000	// UART base address
-    mov x0, #3
-    str w0, [x1]
-    mov x0, #5
-    str w0, [x1, #4]
-    str wzr, [x1, #0xc]
-    mov x0, #0xc
-    str w0, [x1, #28]
-    mov x0, #0x3
-    str w0, [x1, #8]
-    mov x0, #0x1
-    str w0, [x1, #0xc]
-
     mov x0, #0x3d2b0000 	// WDT address
     orr x0, x0, #0x200000000	// WDT address
     str wzr, [x0, #0x1c]
@@ -52,6 +38,8 @@ start:
     orr x0, x0, #0x80000000
     sub x0, x0, #16
     mov sp, x0			// initialize stack
+
+    bl enable_all_clocks
 
     adr x0, smpentry
     add x0, x0, #0x20000
