@@ -30,9 +30,9 @@ entry:
 start:
     mov x24, x0
 
-    mov x0, #0x3d2b0000 	// WDT address
-    orr x0, x0, #0x200000000	// WDT address
-    str wzr, [x0, #0x1c]
+//mov x0, #0x3d2b0000 	// WDT address
+//    orr x0, x0, #0x200000000	// WDT address
+//    str wzr, [x0, #0x1c]
 
     mov x0, #0x800000000
     orr x0, x0, #0x80000000
