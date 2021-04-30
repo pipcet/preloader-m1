@@ -1,5 +1,5 @@
 AA64 = aarch64-linux-gnu-
-AA64CFLAGS = -Os -Wall -std=c99 -fno-builtin -fno-common -fno-pic -fno-unwind-tables -fomit-frame-pointer -fno-dwarf2-cfi-asm -mgeneral-regs-only
+AA64CFLAGS = -Os -Wall -std=c99 -fno-builtin -fno-common -fno-pic -fno-unwind-tables -fomit-frame-pointer -fno-dwarf2-cfi-asm -mgeneral-regs-only -fno-stack-protector
 
 all: linux.macho
 
